@@ -1,0 +1,84 @@
+<html>
+
+<head>
+  <title>Body or face extraction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 60px;
+    }
+
+    .centeredRow{
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .centerAligned{
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    input,button,select{
+      padding: 10px 20px;
+      border:1px solid black;
+      border-radius: 4px;
+      color:#fff;
+      background-color: #3F51B5;
+      font-size: 16px;
+    }
+
+    #inputImage,canvas{
+      margin: auto;
+      max-width: 100%
+    }
+
+    #fileInput{
+      width:130px;
+    }
+    #loader{
+      position: fixed;
+      top:0;
+      left:0;
+      width:100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #mainContent{
+      visibility: hidden;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="loader">
+    <img src="https://media.giphy.com/media/WiIuC6fAOoXD2/giphy.gif" alt="Loading...">
+  </div>
+  <div id="mainContent">
+  <h1 class="centerAligned">Select an image file and click on Crop button</h1>
+  <div class="centeredRow">
+    <input type="file" id="fileInput" accept="image/*">
+    <button id="cropBtn">CROP</button>
+    <select id="cropOption">
+        <option value="1">Whole Body</option>
+        <option value="2">Only Face</option>
+    </select>
+  </div>
+    <img alt="" id="inputImage">
+    <canvas id="canvas"></canvas>
+  </div>
+</body>
+<!-- Place your code in the script tag below. You can also use an external .js file -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+<!-- Load BodyPix -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+<script src="script.js?v=151"></script>
+
+</html>
