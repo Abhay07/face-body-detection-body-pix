@@ -1,5 +1,4 @@
 const inputImage = document.querySelector('#inputImage');
-inputImage.style.width="100%";
 const fileInput = document.getElementById('fileInput');
 const cropOption = document.querySelector('#cropOption');
 const canvas = document.querySelector('canvas');
@@ -50,10 +49,10 @@ async function loadAndPredict() {
     // // The mask image is an binary mask image with a 1 where there is a person and
     // // a 0 where there is not.
     if (cropOptionValue == 1) {
-        segmentation = await net.segmentPerson(inputImage, { internalResolution: 'high' });
+        segmentation = await net.segmentPerson(inputImage);
         coloredPartImage = bodyPix.toMask(segmentation,{r: 0, g: 0, b: 0, a: 255},{r: 0, g: 0, b: 0, a: 0})
     } else {
-        segmentation = await net.segmentPersonParts(inputImage, { internalResolution: 'high' });
+        segmentation = await net.segmentPersonParts(inputImage);
         coloredPartImage = bodyPix.toColoredPartMask(segmentation, bodyPartMaskColors);
     }
 
