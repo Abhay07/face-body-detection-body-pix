@@ -49,10 +49,10 @@ async function loadAndPredict() {
     // // The mask image is an binary mask image with a 1 where there is a person and
     // // a 0 where there is not.
     if (cropOptionValue == 1) {
-        segmentation = await net.segmentPerson(inputImage);
+        segmentation = await net.segmentPerson(inputImage, { internalResolution: 'high' });
         coloredPartImage = bodyPix.toMask(segmentation,{r: 0, g: 0, b: 0, a: 255},{r: 0, g: 0, b: 0, a: 0})
     } else {
-        segmentation = await net.segmentPersonParts(inputImage);
+        segmentation = await net.segmentPersonParts(inputImage, { internalResolution: 'high' });
         coloredPartImage = bodyPix.toColoredPartMask(segmentation, bodyPartMaskColors);
     }
 
