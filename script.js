@@ -38,11 +38,13 @@ fileInput.addEventListener('change', onSelectFile, false);
 cropOption.addEventListener('change',onCropOptionChange);
 cropBtn.addEventListener('click',loadAndPredict);
 removePeopleBtn.addEventListener('click',removePeople);
+tf.enableProdMode()
 
 async function loadAndPredict() {
     if(!fileInput.files){
       return;
     }
+    var startTime = performance.now();
     showOutputImage();
     ctx.clearRect(0,0,canvas.width,canvas.height);
     
@@ -51,12 +53,13 @@ async function loadAndPredict() {
     // // The mask image is an binary mask image with a 1 where there is a person and
     // // a 0 where there is not.
     if (cropOptionValue == 1) {
-        segmentation = await net.segmentPerson(inputImage, { internalResolution: 'high' });
+        segmentation = await net.segmentPerson(inputImage, { internalResolution: 'high',segmentationThreshold:0.5 });
         coloredPartImage = bodyPix.toMask(segmentation,{r: 0, g: 0, b: 0, a: 255},{r: 0, g: 0, b: 0, a: 0})
     } else {
         segmentation = await net.segmentPersonParts(inputImage, { internalResolution: 'high' });
         coloredPartImage = bodyPix.toColoredPartMask(segmentation, bodyPartMaskColors);
     }
+
 
     const opacity = 1;
     const flipHorizontal = false;
@@ -96,7 +99,9 @@ async function loadAndPredict() {
     ctx.drawImage(inputImage, 0, 0,inputImage.width,inputImage.height);
     ctx.restore();
     
-    hideInputImage()
+    hideInputImage();
+    var endTime = performance.now();
+    console.log(endTime - startTime);
 }
 
 
@@ -200,7 +205,10 @@ function showOutputImage(){
   canvas.style.display = 'block'
 }
 async function init(){
-  net = await bodyPix.load();
+  net = await bodyPix.load({
+    multiplier:0.5,
+    outputStride:16
+  });
   hideLoader();
   document.querySelector('#mainContent').style.visibility="visible";
 
