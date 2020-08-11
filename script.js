@@ -37,7 +37,7 @@ const bodyPartMaskColors = [
 fileInput.addEventListener('change', onSelectFile, false);
 cropOption.addEventListener('change',onCropOptionChange);
 cropBtn.addEventListener('click',loadAndPredict);
-removePeopleBtn.addEventListener('click',removePeople);
+// removePeopleBtn.addEventListener('click',removePeople);
 tf.enableProdMode()
 
 async function loadAndPredict() {
